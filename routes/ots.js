@@ -1,10 +1,10 @@
 import log from "../libs/log";
-import bodyParser from "body-parser";
+import {text} from "body-parser";
 import commandExists from "command-exists";
 import * as OTS from "child_process";
 import {writeFile, unlink} from "fs";
 
-const textBodyParser = bodyParser.text({limit: '5mb'});
+const textBodyParser = text({limit: '5mb'});
 
 function writeFilePromise(filename, data, encoding) {
 	return new Promise(function(resolve, reject) {
@@ -49,10 +49,8 @@ module.exports = app => {
 								log.debug("\n" + stdout);
 
 								unlink(filenameForFileForOTS);
-								res.type('text/html');
+								res.type('text/plain');
 								res.status(200).send(stdout.trim());
-								res.flush();
-
 							})
 
 					}).catch(() => {
