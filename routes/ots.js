@@ -1,8 +1,19 @@
 import log from "../libs/log";
 import bodyParser from "body-parser";
 import commandExists from "command-exists";
+import * as OTS from "child_process";
+import {writeFile} from "fs";
 
 const textBodyParser = bodyParser.text({limit: '5mb'});
+
+function writeFilePromise(filename, data, encoding) {
+	return new Promise(function(resolve, reject) {
+		writeFile(filename, data, encoding, (error) => {
+			if (error) reject(error);
+			else resolve(data);
+		});
+	});
+}
 
 module.exports = app => {
 
@@ -14,16 +25,44 @@ module.exports = app => {
 
 		if (!req.body) return res.sendStatus(400);
 
-
 		log.debug(req.body);
 
-		commandExists('ots')
+		const filenameForFileForOTS = "./public/uploads/" + Date.now() + ".txt";
+
+		writeFilePromise(filenameForFileForOTS, req.body, "utf8")
 			.then(() => {
 
+				commandExists('ots')
+					.then(() => {
+
+						OTS.exec("ots -r 15 --dic uk " + filenameForFileForOTS, {maxBuffer: 1000 * 1024},
+							(error, stdout, stderr) => {
+
+								if (error) {
+									writeFile.unlink(filenameForFileForOTS);
+									res.sendStatus(500);
+									log.error(error);
+									return log.error(stderr);
+								}
+
+								log.info("Done!");
+								log.debug("\n" + stdout);
+
+								writeFile.unlink(filenameForFileForOTS);
+								res.type('text/html');
+								res.status(200).send(stdout.trim());
+								res.flush();
+
+							})
+
+					}).catch(() => {
+					res.sendStatus(500);
+					return log.error("500 Error: Command ots doesn't exist");
+				});
 
 			}).catch(() => {
 			res.sendStatus(500);
-			return log.error("500 Error: Command ots doesn't exist");
+			return log.error("500 Error: writeFilePromise function error");
 		});
 	});
 };
