@@ -2,7 +2,7 @@ import log from "../libs/log";
 import bodyParser from "body-parser";
 import commandExists from "command-exists";
 import * as OTS from "child_process";
-import {writeFile} from "fs";
+import {writeFile, unlink} from "fs";
 
 const textBodyParser = bodyParser.text({limit: '5mb'});
 
@@ -39,7 +39,7 @@ module.exports = app => {
 							(error, stdout, stderr) => {
 
 								if (error) {
-									writeFile.unlink(filenameForFileForOTS);
+									unlink(filenameForFileForOTS);
 									res.sendStatus(500);
 									log.error(error);
 									return log.error(stderr);
@@ -48,7 +48,7 @@ module.exports = app => {
 								log.info("Done!");
 								log.debug("\n" + stdout);
 
-								writeFile.unlink(filenameForFileForOTS);
+								unlink(filenameForFileForOTS);
 								res.type('text/html');
 								res.status(200).send(stdout.trim());
 								res.flush();
@@ -56,6 +56,7 @@ module.exports = app => {
 							})
 
 					}).catch(() => {
+					unlink(filenameForFileForOTS);
 					res.sendStatus(500);
 					return log.error("500 Error: Command ots doesn't exist");
 				});
