@@ -35,7 +35,7 @@ module.exports = app => {
 				commandExists('ots')
 					.then(() => {
 
-						OTS.exec("ots -r 15 --dic uk " + filenameForFileForOTS, {maxBuffer: 1000 * 1024},
+						OTS.exec("ots -r 20 --dic uk " + filenameForFileForOTS, {maxBuffer: 1000 * 1024},
 							(error, stdout, stderr) => {
 
 								if (error) {
