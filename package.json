@@ -1,0 +1,22 @@
+{
+  "name": "text-summarization-api",
+  "version": "1.0.0",
+  "description": "description",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malakhovks/text-summarization-api.git"
+  },
+  "keywords": [
+    "service"
+  ],
+  "author": "kirill-malakhov",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/malakhovks/text-summarization-api/issues"
+  },
+  "homepage": "https://github.com/malakhovks/text-summarization-api#readme"
+}
