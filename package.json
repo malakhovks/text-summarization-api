@@ -4,6 +4,8 @@
   "description": "description",
   "main": "server.js",
   "scripts": {
+    "start": "PORT=3003 babel-node server.js",
+    "start-production": " PORT=3003 NODE_ENV=production babel-node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -11,12 +13,35 @@
     "url": "git+https://github.com/malakhovks/text-summarization-api.git"
   },
   "keywords": [
-    "service"
+    "service",
+    "microservice",
+    "text",
+    "api",
+    "restful-api",
+    "rest-api",
+    "ots",
+    "summarization"
   ],
   "author": "kirill-malakhov",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/malakhovks/text-summarization-api/issues"
   },
-  "homepage": "https://github.com/malakhovks/text-summarization-api#readme"
+  "homepage": "https://github.com/malakhovks/text-summarization-api#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "body-parser": "^1.18.2",
+    "command-exists": "^1.2.2",
+    "compression": "^1.7.1",
+    "consign": "^0.1.6",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0",
+    "path": "^0.12.7",
+    "winston": "^2.4.0"
+  },
+  "engines": {
+    "node": "^6.11.0"
+  }
 }
