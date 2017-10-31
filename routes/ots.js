@@ -17,13 +17,9 @@ function writeFilePromise(filename, data, encoding) {
 
 module.exports = app => {
 
-	app.get("/api/ots", (req, res) => {
-		return res.status(200).json({status: "OK"});
-	});
-
 	app.post("/api/ots", textBodyParser, (req, res) => {
 
-		if (!req.body) return res.sendStatus(400);
+		if (!req.body) return res.status(400).send("Empty body");
 
 		log.debug(req.body);
 
