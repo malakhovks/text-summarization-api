@@ -17,13 +17,9 @@ function writeFilePromise(filename, data, encoding) {
 
 module.exports = app => {
 
-	app.get("/api/ots", (req, res) => {
-		return res.status(200).json({status: "OK"});
-	});
-
 	app.post("/api/ots", textBodyParser, (req, res) => {
 
-		if (!req.body) return res.sendStatus(400);
+		if (!req.body) return res.status(400).send("Empty body");
 
 		log.debug(req.body);
 
@@ -35,7 +31,7 @@ module.exports = app => {
 				commandExists('ots')
 					.then(() => {
 
-						OTS.exec("ots -r 20 --dic uk " + filenameForFileForOTS, {maxBuffer: 1000 * 1024},
+						OTS.exec("ots -r 20 --dic uk " + filenameForFileForOTS, {maxBuffer: 3000 * 1024},
 							(error, stdout, stderr) => {
 
 								if (error) {
@@ -45,7 +41,7 @@ module.exports = app => {
 									return log.error(stderr);
 								}
 
-								log.info("Done!");
+								log.debug("Done!");
 								log.debug("\n" + stdout);
 
 								unlink(filenameForFileForOTS);

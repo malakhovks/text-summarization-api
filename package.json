@@ -1,7 +1,7 @@
 {
   "name": "text-summarization-api",
-  "version": "1.0.0",
-  "description": "description",
+  "version": "0.1.0",
+  "description": "Automatic text summarization",
   "main": "server.js",
   "scripts": {
     "start": "PORT=3003 babel-node server.js",
@@ -12,6 +12,10 @@
     "type": "git",
     "url": "git+https://github.com/malakhovks/text-summarization-api.git"
   },
+  "bugs": {
+    "url": "https://github.com/malakhovks/text-summarization-api/issues"
+  },
+  "homepage": "https://github.com/malakhovks/text-summarization-api#readme",
   "keywords": [
     "service",
     "microservice",
@@ -24,10 +28,6 @@
   ],
   "author": "kirill-malakhov",
   "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/malakhovks/text-summarization-api/issues"
-  },
-  "homepage": "https://github.com/malakhovks/text-summarization-api#readme",
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
